@@ -24,7 +24,7 @@ public class OrderBusinessLogic implements JavaDelegate {
 	private static Logger LOGGER = Logger.getLogger(OrderBusinessLogic.class.getName());
 
 	@Autowired
-	JmsTemplate jmsTemplate;
+	private JmsTemplate jmsTemplate;
 
 	@PersistenceContext
 	private EntityManager entityManager;
