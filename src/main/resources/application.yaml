@@ -1,0 +1,42 @@
+server:
+  port: 8090
+  #contextPath: /app/reports
+spring:
+  datasource:
+    #type: com.zaxxer.hikari.HikariDataSource
+    url: jdbc:h2:file:./target/h2db/db/camunda;DB_CLOSE_ON_EXIT=TRUE;FILE_LOCK=NO
+    username: sa
+    password:
+    driver-class-name: org.h2.Driver
+  restProxyHost: localhost
+  restProxyPort: 8080   
+  h2:
+    console:
+      enabled: true
+  jpa:
+    #database-platform: io.github.jhipster.domain.util.FixedH2Dialect
+    database: H2
+    show-sql: true
+    hibernate.ddl-auto: create
+    properties:
+      hibernate.id.new_generator_mappings: true
+      hibernate.cache.use_second_level_cache: true
+      hibernate.cache.use_query_cache: false
+      hibernate.generate_statistics: false
+      hibernate.dialect: org.hibernate.dialect.H2Dialect
+      #hibernate.hbm2ddl.auto: create
+      #hibernate.cache.region.factory_class: io.github.jhipster.config.jcache.NoDefaultJCacheRegionFactory 
+  profiles:
+    active: dev
+camunda.bpm:
+  admin-user:
+    id: kermit
+    password: kermit
+    firstName: Kermit
+  filter:
+    create: All tasks
+  #webapp: 
+    #security-config-file: videotronSecurityFilterRules.json   
+ 
+
+   

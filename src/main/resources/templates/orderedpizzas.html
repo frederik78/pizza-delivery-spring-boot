@@ -1,0 +1,22 @@
+<body>
+	<h1>Rapport de test</h1>
+	<p th:text="'Hello, ' + ${name} + '!'" />
+
+	<div th:if="${not #lists.isEmpty(allOrderedPizza)}">
+		<table class="table table-striped">
+			<tr>
+				<th>customer</th>
+				<th>address</th>
+				<th>pizza</th>
+			</tr>
+			<tr th:each="ordered : ${allOrderedPizza}">
+				<td th:text="${ordered.customer}"></td>
+				<td th:text="${ordered.address}"></td>
+				<td th:text="${ordered.pizza}"></td>
+			</tr>
+		</table>
+	</div>
+
+
+
+</body>
