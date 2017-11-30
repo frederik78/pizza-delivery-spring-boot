@@ -1,10 +1,6 @@
 package com.frederic.gan.filter;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.StringWriter;
 import java.util.List;
 
 import javax.servlet.Filter;
@@ -16,13 +12,10 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.lang.StringUtils;
 import org.camunda.bpm.engine.ProcessEngine;
 import org.camunda.bpm.webapp.impl.security.auth.Authentication;
 import org.camunda.bpm.webapp.impl.security.auth.Authentications;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.Resource;
-import org.springframework.core.io.ResourceLoader;
 
 public class VideotronFilter implements Filter {
 
@@ -30,9 +23,6 @@ public class VideotronFilter implements Filter {
 
 	@Autowired
 	ProcessEngine engine;
-
-	@Autowired
-	private ResourceLoader resourceLoader;
 
 	public void init(FilterConfig filterConfig) throws ServletException {
 		// TODO Auto-generated method stub
@@ -61,34 +51,6 @@ public class VideotronFilter implements Filter {
 	public void destroy() {
 		// TODO Auto-generated method stub
 
-	}
-
-	private String getWebResourceContents(String name) throws IOException {
-		InputStream is = null;
-
-		try {
-			Resource resource = resourceLoader.getResource("classpath:" + name);
-			is = resource.getInputStream();
-
-			BufferedReader reader = new BufferedReader(new InputStreamReader(is));
-
-			StringWriter writer = new StringWriter();
-			String line = null;
-
-			while ((line = reader.readLine()) != null) {
-				writer.write(line);
-				writer.append("\n");
-			}
-
-			return writer.toString();
-		} finally {
-			if (is != null) {
-				try {
-					is.close();
-				} catch (IOException e) {
-				}
-			}
-		}
 	}
 
 }
