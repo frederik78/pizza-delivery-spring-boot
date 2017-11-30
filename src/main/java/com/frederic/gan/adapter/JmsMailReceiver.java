@@ -1,4 +1,4 @@
-package com.frederic.gan.service;
+package com.frederic.gan.adapter;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -10,8 +10,8 @@ import com.frederic.gan.configuration.JmsConfiguration;
 import com.frederic.gan.jms.Email;
 
 @Component
-public class MailReceiver {
-	private static Logger LOGGER = Logger.getLogger(MailReceiver.class.getName());
+public class JmsMailReceiver {
+	private static Logger LOGGER = Logger.getLogger(JmsMailReceiver.class.getName());
 
 	@JmsListener(destination = JmsConfiguration.MAILBOX_TOPIC, containerFactory = "myFactory")
 	public void receiveMessage(Email email) {

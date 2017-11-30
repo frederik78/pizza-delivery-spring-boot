@@ -1,4 +1,4 @@
-package com.frederic.gan.service;
+package com.frederic.gan.adapter;
 
 import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.camunda.bpm.engine.delegate.JavaDelegate;
@@ -12,7 +12,7 @@ import org.springframework.web.client.RestTemplate;
 
 @Component
 @ConfigurationProperties
-public class ManageFeedBack implements JavaDelegate {
+public class RestManageFeedBack implements JavaDelegate {
 
   @Autowired
   private RestTemplate rest;

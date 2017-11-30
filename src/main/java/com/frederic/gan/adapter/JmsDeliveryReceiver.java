@@ -1,4 +1,4 @@
-package com.frederic.gan.service;
+package com.frederic.gan.adapter;
 
 import java.util.UUID;
 import java.util.logging.Level;
@@ -10,9 +10,10 @@ import org.springframework.jms.annotation.JmsListener;
 import org.springframework.stereotype.Component;
 
 import com.frederic.gan.configuration.JmsConfiguration;
+import com.frederic.gan.service.OrderBusinessLogic;
 
 @Component
-public class DeliveryReceiver {
+public class JmsDeliveryReceiver {
 
 	@Autowired
 	private ProcessEngine camunda;
