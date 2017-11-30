@@ -4,9 +4,6 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-
 import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.camunda.bpm.engine.delegate.JavaDelegate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +12,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.frederic.gan.configuration.JmsConfiguration;
+import com.frederic.gan.dao.OrderedPizzaRepository;
 import com.frederic.gan.entities.OrderEntity;
+import com.frederic.gan.entities.Status;
 import com.frederic.gan.jms.Email;
 
 @Service
@@ -26,9 +25,9 @@ public class OrderBusinessLogic implements JavaDelegate {
 	@Autowired
 	private JmsTemplate jmsTemplate;
 
-	@PersistenceContext
-	private EntityManager entityManager;
-
+	@Autowired
+	private OrderedPizzaRepository orderedPizzaRepository;
+	
 	@Transactional
 	public void persistOrder(DelegateExecution delegateExecution) {
 		// Create new order instance
@@ -41,11 +40,10 @@ public class OrderBusinessLogic implements JavaDelegate {
 		orderEntity.setCustomer((String) variables.get("customer"));
 		orderEntity.setAddress((String) variables.get("address"));
 		orderEntity.setPizza((String) variables.get("pizza"));
-
+		orderEntity.setStatus(Status.ORDERED);
 		// Persist order instance and flush. After the flush the
 		// id of the order instance is set.
-		entityManager.persist(orderEntity);
-		entityManager.flush();
+		orderEntity = orderedPizzaRepository.save(orderEntity);
 
 		// Add newly created order id as process variable
 		delegateExecution.setVariable("orderId", orderEntity.getId());
@@ -53,27 +51,32 @@ public class OrderBusinessLogic implements JavaDelegate {
 
 	public OrderEntity getOrder(Long orderId) {
 		// Load order entity from database
-		return entityManager.find(OrderEntity.class, orderId);
+		return orderedPizzaRepository.findOne(orderId);
 	}
 
 	public void rejectOrder(DelegateExecution delegateExecution) {
 		OrderEntity order = getOrder((Long) delegateExecution.getVariable("orderId"));
 		LOGGER.log(Level.INFO, "\n\n\nSending Email:\nDear {0}, your order {1} of a {2} pizza has been rejected.\n\n\n",
 				new String[] { order.getCustomer(), String.valueOf(order.getId()), order.getPizza() });
+		final OrderEntity orderEntity = getOrder((Long) delegateExecution.getVariable("orderId"));
+		orderEntity.setStatus(Status.REJECTED);
+		orderedPizzaRepository.save(orderEntity);
 		jmsTemplate.convertAndSend(JmsConfiguration.MAILBOX_TOPIC, new Email("info@example.com", "Pizza cannot be delivered"));
 	}
 
 	public void persistValidation(DelegateExecution delegateExecution) {
-		OrderEntity orderEntity = getOrder((Long) delegateExecution.getVariable("orderId"));
+		final OrderEntity orderEntity = getOrder((Long) delegateExecution.getVariable("orderId"));
 		orderEntity.setApproved((Boolean) delegateExecution.getVariable("approved"));
-		entityManager.persist(orderEntity);
-		entityManager.flush();
-
+		orderEntity.setStatus(Status.APPROVED);
+		orderedPizzaRepository.save(orderEntity);
 	}
 
 	public void pizzaIsFinished(DelegateExecution delegateExecution){
 		
 		LOGGER.log(Level.INFO, "\n***********************\n*                     *\n*   Pizza is ready    *\n*   to be delivered   *\n*                     *\n*                     *\n*                     *\n***********************\n");
+		final OrderEntity orderEntity = getOrder((Long) delegateExecution.getVariable("orderId"));
+		orderEntity.setStatus(Status.FINISHED);
+		orderedPizzaRepository.save(orderEntity);
 		jmsTemplate.convertAndSend(JmsConfiguration.PIZZA_FINISHED_TOPIC, (Long) delegateExecution.getVariable("orderId"));
 	}
 	

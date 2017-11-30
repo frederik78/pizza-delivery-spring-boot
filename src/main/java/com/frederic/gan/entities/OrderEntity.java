@@ -3,6 +3,8 @@ package com.frederic.gan.entities;
 import java.io.Serializable;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Version;
@@ -10,65 +12,78 @@ import javax.persistence.Version;
 @Entity
 public class OrderEntity implements Serializable {
 
-  private static  final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-  @Id
-  @GeneratedValue
-  protected Long id;
+	@Id
+	@GeneratedValue
+	protected Long id;
 
-  @Version
-  protected long version;
+	@Version
+	protected long version;
 
-  protected String customer;
-  protected String address;
-  protected String pizza;
-  protected boolean approved;
+	private String customer;
+	private String address;
+	private String pizza;
 
-  public Long getId() {
-    return id;
-  }
+	@Enumerated(EnumType.STRING)
+	private Status status;
 
-  public void setId(Long id) {
-    this.id = id;
-  }
+	private boolean approved;
 
-  public long getVersion() {
-    return version;
-  }
+	public Long getId() {
+		return id;
+	}
 
-  public void setVersion(long version) {
-    this.version = version;
-  }
+	public void setId(Long id) {
+		this.id = id;
+	}
 
-  public String getCustomer() {
-    return customer;
-  }
+	public long getVersion() {
+		return version;
+	}
 
-  public void setCustomer(String customer) {
-    this.customer = customer;
-  }
+	public void setVersion(long version) {
+		this.version = version;
+	}
 
-  public String getAddress() {
-    return address;
-  }
+	public String getCustomer() {
+		return customer;
+	}
 
-  public void setAddress(String address) {
-    this.address = address;
-  }
+	public void setCustomer(String customer) {
+		this.customer = customer;
+	}
 
-  public String getPizza() {
-    return pizza;
-  }
+	public String getAddress() {
+		return address;
+	}
 
-  public void setPizza(String pizza) {
-    this.pizza = pizza;
-  }
+	public void setAddress(String address) {
+		this.address = address;
+	}
 
-  public boolean isApproved() {
-    return approved;
-  }
+	public String getPizza() {
+		return pizza;
+	}
 
-  public void setApproved(boolean approved) {
-    this.approved = approved;
-  }
+	public void setPizza(String pizza) {
+		this.pizza = pizza;
+	}
+
+	public boolean isApproved() {
+		return approved;
+	}
+
+	public void setApproved(boolean approved) {
+		this.approved = approved;
+	}
+
+	public Status getStatus() {
+		return status;
+	}
+
+	public void setStatus(Status status) {
+		this.status = status;
+	}
+
 }
