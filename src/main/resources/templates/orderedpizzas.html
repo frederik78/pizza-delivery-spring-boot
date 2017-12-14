@@ -8,11 +8,15 @@
 				<th>customer</th>
 				<th>address</th>
 				<th>pizza</th>
+				<th>status</th>
+				
 			</tr>
 			<tr th:each="ordered : ${allOrderedPizza}">
 				<td th:text="${ordered.customer}"></td>
 				<td th:text="${ordered.address}"></td>
 				<td th:text="${ordered.pizza}"></td>
+				<td th:text="${ordered.status}"></td>
+				
 			</tr>
 		</table>
 	</div>

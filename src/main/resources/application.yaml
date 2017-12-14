@@ -4,7 +4,7 @@ server:
 spring:
   datasource:
     #type: com.zaxxer.hikari.HikariDataSource
-    url: jdbc:h2:file:./target/h2db/db/camunda;DB_CLOSE_ON_EXIT=TRUE;FILE_LOCK=NO
+    url: jdbc:h2:file:./target/h2db/db/camunda;DB_CLOSE_ON_EXIT=TRUE;FILE_LOCK=NO;MODE=MYSQL
     username: sa
     password:
     driver-class-name: org.h2.Driver

@@ -82,7 +82,7 @@
     </bpmn:userTask>
     <bpmn:endEvent id="PizzaDelivered" name="Pizza Delivered" camunda:asyncBefore="true">
       <bpmn:incoming>SequenceFlow_147f7xz</bpmn:incoming>
-      <bpmn:messageEventDefinition camunda:delegateExpression="${manageFeedBack}" />
+      <bpmn:messageEventDefinition camunda:delegateExpression="${restManageFeedBack}" />
     </bpmn:endEvent>
     <bpmn:textAnnotation id="TextAnnotation_13hyc34">
       <bpmn:text>REST</bpmn:text>
