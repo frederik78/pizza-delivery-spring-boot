@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/DMN/20151101/dmn.xsd" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/1.0" xmlns:camunda="http://camunda.org/schema/1.0/dmn" id="deliverSelection" name="Choose a deliver" namespace="http://camunda.org/schema/1.0/dmn">
+  <decision id="deliver" name="Deliver">
+    <extensionElements>
+      <biodi:bounds x="200" y="200" width="180" height="80" />
+    </extensionElements>
+    <decisionTable id="decisionTable">
+      <input id="input1" label="ZipCode" camunda:inputVariable="">
+        <inputExpression id="inputExpression1" typeRef="string">
+          <text>zipCode</text>
+        </inputExpression>
+      </input>
+      <output id="output1" label="Deliver" name="deliver" typeRef="string" />
+      <rule id="row-746082703-1">
+        <inputEntry id="UnaryTests_1s4ogqb">
+          <text><![CDATA["H1X"]]></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0e3cfgs">
+          <text><![CDATA["UPS"]]></text>
+        </outputEntry>
+      </rule>
+      <rule id="row-746082703-2">
+        <inputEntry id="UnaryTests_01zcjcj">
+          <text><![CDATA["H3A"]]></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1b4gogi">
+          <text><![CDATA["FedEx"]]></text>
+        </outputEntry>
+      </rule>
+      <rule id="row-746082703-3">
+        <inputEntry id="UnaryTests_002hadg">
+          <text><![CDATA["H3Z"]]></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_145kyya">
+          <text><![CDATA["Post Canada"]]></text>
+        </outputEntry>
+      </rule>
+      <rule id="row-746082703-4">
+        <inputEntry id="UnaryTests_1cx2euj">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_11vea9e">
+          <text><![CDATA["DHL"]]></text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+</definitions>

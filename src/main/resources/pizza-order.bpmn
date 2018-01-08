@@ -63,27 +63,32 @@
     <bpmn:textAnnotation id="TextAnnotation_190y70f">
       <bpmn:text>AMQP</bpmn:text>
     </bpmn:textAnnotation>
+    <bpmn:association id="Association_00x3b0x" sourceRef="Task_14l7676" targetRef="TextAnnotation_190y70f" />
+    <bpmn:association id="Association_1axs260" sourceRef="EndEvent_0qoillw" targetRef="TextAnnotation_0kvpyjw" />
     <bpmn:textAnnotation id="TextAnnotation_0kvpyjw">
       <bpmn:text>AMQP</bpmn:text>
     </bpmn:textAnnotation>
-    <bpmn:association id="Association_00x3b0x" sourceRef="Task_14l7676" targetRef="TextAnnotation_190y70f" />
-    <bpmn:association id="Association_1axs260" sourceRef="PreparePizza" targetRef="TextAnnotation_0kvpyjw" />
   </bpmn:process>
   <bpmn:process id="pizzaDelivery" name="Pizza Delivery" isExecutable="true">
     <bpmn:startEvent id="PickUpPizza" name="Pick up Pizza">
       <bpmn:outgoing>SequenceFlow_1rnznam</bpmn:outgoing>
       <bpmn:messageEventDefinition messageRef="Message_1nv75h2" />
     </bpmn:startEvent>
-    <bpmn:sequenceFlow id="SequenceFlow_1rnznam" sourceRef="PickUpPizza" targetRef="DeliverPizza" />
+    <bpmn:sequenceFlow id="SequenceFlow_1rnznam" sourceRef="PickUpPizza" targetRef="Task_0gfp08g" />
     <bpmn:sequenceFlow id="SequenceFlow_147f7xz" sourceRef="DeliverPizza" targetRef="PizzaDelivered" />
-    <bpmn:userTask id="DeliverPizza" name="Deliver pizza" camunda:formKey="embedded:app:forms/deliverpizza.html">
-      <bpmn:incoming>SequenceFlow_1rnznam</bpmn:incoming>
-      <bpmn:outgoing>SequenceFlow_147f7xz</bpmn:outgoing>
-    </bpmn:userTask>
     <bpmn:endEvent id="PizzaDelivered" name="Pizza Delivered" camunda:asyncBefore="true">
       <bpmn:incoming>SequenceFlow_147f7xz</bpmn:incoming>
       <bpmn:messageEventDefinition camunda:delegateExpression="${restManageFeedBack}" />
     </bpmn:endEvent>
+    <bpmn:sequenceFlow id="SequenceFlow_0jbrmr9" sourceRef="Task_0gfp08g" targetRef="DeliverPizza" />
+    <bpmn:userTask id="DeliverPizza" name="Deliver pizza" camunda:formKey="embedded:app:forms/deliverpizza.html">
+      <bpmn:incoming>SequenceFlow_0jbrmr9</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_147f7xz</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:businessRuleTask id="Task_0gfp08g" name="Select deliver" camunda:decisionRef="deliver">
+      <bpmn:incoming>SequenceFlow_1rnznam</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0jbrmr9</bpmn:outgoing>
+    </bpmn:businessRuleTask>
     <bpmn:textAnnotation id="TextAnnotation_13hyc34">
       <bpmn:text>REST</bpmn:text>
     </bpmn:textAnnotation>
@@ -130,7 +135,7 @@
         <dc:Bounds x="1085" y="372" width="100" height="30" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="TextAnnotation_0kvpyjw_di" bpmnElement="TextAnnotation_0kvpyjw">
-        <dc:Bounds x="1085" y="-4.197031039136306" width="99.99156545209178" height="29.984817813765183" />
+        <dc:Bounds x="1298" y="3" width="100" height="30" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="SequenceFlow_1g99kfu_di" bpmnElement="SequenceFlow_1g99kfu">
         <di:waypoint xsi:type="dc:Point" x="209" y="120" />
@@ -194,8 +199,8 @@
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Association_1axs260_di" bpmnElement="Association_1axs260">
-        <di:waypoint xsi:type="dc:Point" x="1094" y="80" />
-        <di:waypoint xsi:type="dc:Point" x="1126" y="26" />
+        <di:waypoint xsi:type="dc:Point" x="1277" y="95.82578397212544" />
+        <di:waypoint xsi:type="dc:Point" x="1334" y="33" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="Participant_1nlbq8u_di" bpmnElement="Participant_11jfd0v">
         <dc:Bounds x="123.21052631578948" y="477.37381916329286" width="685.7894736842105" height="250" />
@@ -214,16 +219,16 @@
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="SequenceFlow_1rnznam_di" bpmnElement="SequenceFlow_1rnznam">
         <di:waypoint xsi:type="dc:Point" x="222" y="601" />
-        <di:waypoint xsi:type="dc:Point" x="383" y="601" />
+        <di:waypoint xsi:type="dc:Point" x="293" y="601" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="302.5" y="579.5" width="0" height="13" />
+          <dc:Bounds x="212.5" y="579.5" width="90" height="13" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="SequenceFlow_147f7xz_di" bpmnElement="SequenceFlow_147f7xz">
-        <di:waypoint xsi:type="dc:Point" x="483" y="601" />
+        <di:waypoint xsi:type="dc:Point" x="549" y="601" />
         <di:waypoint xsi:type="dc:Point" x="641" y="601" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="517" y="579.5" width="90" height="13" />
+          <dc:Bounds x="550" y="579.5" width="90" height="13" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="TextAnnotation_13hyc34_di" bpmnElement="TextAnnotation_13hyc34">
@@ -244,7 +249,7 @@
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="UserTask_0hnqgym_di" bpmnElement="DeliverPizza">
-        <dc:Bounds x="383" y="561" width="100" height="80" />
+        <dc:Bounds x="449" y="561" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="UserTask_0p4zco6_di" bpmnElement="PreparePizza">
         <dc:Bounds x="1020" y="80" width="100" height="80" />
@@ -254,6 +259,16 @@
         <bpmndi:BPMNLabel>
           <dc:Bounds x="619" y="622" width="84" height="13" />
         </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_0jbrmr9_di" bpmnElement="SequenceFlow_0jbrmr9">
+        <di:waypoint xsi:type="dc:Point" x="393" y="601" />
+        <di:waypoint xsi:type="dc:Point" x="449" y="601" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="421" y="579.5" width="0" height="13" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="BusinessRuleTask_05ty4yc_di" bpmnElement="Task_0gfp08g">
+        <dc:Bounds x="293" y="561" width="100" height="80" />
       </bpmndi:BPMNShape>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>

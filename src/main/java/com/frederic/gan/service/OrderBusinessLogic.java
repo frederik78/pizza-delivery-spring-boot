@@ -39,6 +39,7 @@ public class OrderBusinessLogic implements JavaDelegate {
 		// Set order attributes
 		orderEntity.setCustomer((String) variables.get("customer"));
 		orderEntity.setAddress((String) variables.get("address"));
+		orderEntity.setZipCode((String) variables.get("zipCode"));
 		orderEntity.setPizza((String) variables.get("pizza"));
 		orderEntity.setStatus(Status.ORDERED);
 		// Persist order instance and flush. After the flush the

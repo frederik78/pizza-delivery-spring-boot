@@ -23,8 +23,10 @@ public class OrderEntity implements Serializable {
 
 	private String customer;
 	private String address;
+	private String zipCode;
 	private String pizza;
-
+	private String deliver;
+	
 	@Enumerated(EnumType.STRING)
 	private Status status;
 
@@ -84,6 +86,22 @@ public class OrderEntity implements Serializable {
 
 	public void setStatus(Status status) {
 		this.status = status;
+	}
+
+	public String getZipCode() {
+		return zipCode;
+	}
+
+	public void setZipCode(String zipCode) {
+		this.zipCode = zipCode;
+	}
+
+	public String getDeliver() {
+		return deliver;
+	}
+
+	public void setDeliver(String deliver) {
+		this.deliver = deliver;
 	}
 
 }
