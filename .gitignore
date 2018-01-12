@@ -20,3 +20,5 @@ target/
 *.zip
 *.tar.gz
 *.rar
+/.apt_generated/
+/.metadata/

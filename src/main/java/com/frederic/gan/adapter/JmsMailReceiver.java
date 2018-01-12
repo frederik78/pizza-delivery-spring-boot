@@ -17,7 +17,14 @@ public class JmsMailReceiver {
 	public void receiveMessage(Email email) {
 
 		LOGGER.log(Level.INFO,
-				"\n***********************\n*                     *\n* Email has been sent *\n*                     *\n*                     *\n*                     *\n***********************\n");
+				"\n"//
+				+ "***********************\n"//
+				+ "*                     *\n"//
+				+ "* Email has been sent *\n"//
+				+ "*                     *\n"//
+				+ "*                     *\n"//
+				+ "*                     *\n"//
+				+ "***********************\n");
 
 		System.out.println("Received <" + email + ">");
 	}

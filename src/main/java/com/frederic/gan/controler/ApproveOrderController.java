@@ -47,6 +47,13 @@ public class ApproveOrderController implements Serializable {
 		orderedPizzaRepository.save(orderEntity);
 
 		LOGGER.log(Level.INFO,
-				"\n***********************\n*                     *\n*   Pizza delivered   *\n*                     *\n*                     *\n*                     *\n***********************\n");
+				"\n"//
+				+ "***********************\n"//
+				+ "*                     *\n"//
+				+ "*   Pizza delivered   *\n"//
+				+ "*                     *\n"//
+				+ "*                     *\n"//
+				+ "*                     *\n"//
+				+ "***********************\n");
 	}
 }

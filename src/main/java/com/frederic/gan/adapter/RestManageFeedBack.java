@@ -8,9 +8,6 @@ import org.springframework.http.HttpEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
-import com.frederic.gan.entities.OrderEntity;
-import com.frederic.gan.entities.Status;
-
 //import com.camunda.demo.springboot.ProcessConstants;
 
 @Component

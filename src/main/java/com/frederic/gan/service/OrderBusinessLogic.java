@@ -18,6 +18,7 @@ import com.frederic.gan.entities.Status;
 import com.frederic.gan.jms.Email;
 
 @Service
+@Transactional
 public class OrderBusinessLogic implements JavaDelegate {
 
 	private static Logger LOGGER = Logger.getLogger(OrderBusinessLogic.class.getName());
@@ -27,8 +28,7 @@ public class OrderBusinessLogic implements JavaDelegate {
 
 	@Autowired
 	private OrderedPizzaRepository orderedPizzaRepository;
-	
-	@Transactional
+
 	public void persistOrder(DelegateExecution delegateExecution) {
 		// Create new order instance
 		OrderEntity orderEntity = new OrderEntity();
@@ -62,7 +62,8 @@ public class OrderBusinessLogic implements JavaDelegate {
 		final OrderEntity orderEntity = getOrder((Long) delegateExecution.getVariable("orderId"));
 		orderEntity.setStatus(Status.REJECTED);
 		orderedPizzaRepository.save(orderEntity);
-		jmsTemplate.convertAndSend(JmsConfiguration.MAILBOX_TOPIC, new Email("info@example.com", "Pizza cannot be delivered"));
+		jmsTemplate.convertAndSend(JmsConfiguration.MAILBOX_TOPIC,
+				new Email("info@example.com", "Pizza cannot be delivered"));
 	}
 
 	public void persistValidation(DelegateExecution delegateExecution) {
@@ -70,18 +71,37 @@ public class OrderBusinessLogic implements JavaDelegate {
 		orderEntity.setApproved((Boolean) delegateExecution.getVariable("approved"));
 		orderEntity.setStatus(Status.APPROVED);
 		orderedPizzaRepository.save(orderEntity);
+		LOGGER.log(Level.INFO,
+				"\n"// 
+				+ "***********************\n"//
+				+ "*                     *\n"//
+				+ "*   Order is saved    *\n"//
+				+ "*                     *\n"//
+				+ "*                     *\n"//
+				+ "*                     *\n"//
+				+ "*                     *\n"//
+				+ "***********************\n");
 	}
 
-	public void pizzaIsFinished(DelegateExecution delegateExecution){
-		
-		LOGGER.log(Level.INFO, "\n***********************\n*                     *\n*   Pizza is ready    *\n*   to be delivered   *\n*                     *\n*                     *\n*                     *\n***********************\n");
+	public void pizzaIsFinished(DelegateExecution delegateExecution) {
+
+		LOGGER.log(Level.INFO,
+				"\n"// 
+				+ "***********************\n"//
+				+ "*                      *\n"//
+				+ "*   Pizza is ready    *\n"//
+				+ "*   to be delivered   *\n"//
+				+ "*                     *\n"//
+				+ "*                     *\n"//
+				+ "*                     *\n"//
+				+ "***********************\n");
 		final OrderEntity orderEntity = getOrder((Long) delegateExecution.getVariable("orderId"));
 		orderEntity.setStatus(Status.FINISHED);
 		orderedPizzaRepository.save(orderEntity);
-		jmsTemplate.convertAndSend(JmsConfiguration.PIZZA_FINISHED_TOPIC, (Long) delegateExecution.getVariable("orderId"));
+		jmsTemplate.convertAndSend(JmsConfiguration.PIZZA_FINISHED_TOPIC,
+				(Long) delegateExecution.getVariable("orderId"));
 	}
-	
-	
+
 	public void execute(DelegateExecution execution) throws Exception {
 		// TODO Auto-generated method stub
 

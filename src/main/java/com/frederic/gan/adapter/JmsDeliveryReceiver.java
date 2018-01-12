@@ -4,6 +4,9 @@ import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javax.transaction.TransactionScoped;
+import javax.transaction.Transactional;
+
 import org.camunda.bpm.dmn.engine.DmnDecisionTableResult;
 import org.camunda.bpm.engine.DecisionService;
 import org.camunda.bpm.engine.ProcessEngine;
@@ -34,6 +37,7 @@ public class JmsDeliveryReceiver {
 	private static Logger LOGGER = Logger.getLogger(OrderBusinessLogic.class.getName());
 
 	@JmsListener(destination = JmsConfiguration.PIZZA_FINISHED_TOPIC)
+	@Transactional
 	public void startDelivery(Long orderId) {
 
 		
@@ -54,9 +58,18 @@ public class JmsDeliveryReceiver {
 				.setVariable("shipmentId", UUID.randomUUID().toString()) //
 				.setVariable("orderId", orderId) //
 				.setVariable("deliver", deliver) //
+				.setVariable("zipCode", orderEntity.getZipCode()) //
 				.correlateWithResult();
 		LOGGER.log(Level.INFO,
-				"\n***********************\n*                     *\n*   Pizza picked up   *\n*      in charge      *\n*                     *\n*                     *\n*                     *\n***********************\n");
+				"\n"//
+				+ "***********************\n"//
+				+ "*                     *\n"//
+				+ "*   Pizza picked up   *\n"//
+				+ "*      in charge      *\n"//
+				+ "*                     *\n"//
+				+ "*                     *\n"//
+				+ "*                     *\n"//
+				+ "***********************\n");
 	}
 
 }

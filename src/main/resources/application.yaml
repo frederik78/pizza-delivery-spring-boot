@@ -16,7 +16,7 @@ spring:
   jpa:
     #database-platform: io.github.jhipster.domain.util.FixedH2Dialect
     database: H2
-    show-sql: true
+    show-sql: false
     hibernate:
       ddl-auto: update
     properties:
@@ -26,7 +26,7 @@ spring:
         hibernate.cache.use_query_cache: false
         hibernate.generate_statistics: false
         hibernate.dialect: org.hibernate.dialect.H2Dialect
-        show_sql: true
+        show_sql: false
         use_sql_comments: true
         format_sql: true
       #hibernate.hbm2ddl.auto: create
