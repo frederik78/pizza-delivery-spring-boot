@@ -13,5 +13,5 @@ Le modèle global est constitué de deux processus :
 
 Les deux processus communiquent entre eux via activemq.
 
-![alt text](https://github.com/frederik78/pizza-delivery-spring-boot/pizza-order.jpeg "Logo Title Text 1")
+![alt text](https://github.com/frederik78/pizza-delivery-spring-boot/blob/master/pizza-order.jpeg "BPMn pizza delivery")
 
