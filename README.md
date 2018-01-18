@@ -12,7 +12,7 @@ Le modèle global est constitué de deux processus :
 - livraison
 
 Les deux processus communiquent entre eux via activemq.
-![alt text](https://github.com/frederik78/pizza-delivery-spring-boot/pizza-order.png)
+![alt text](https://github.com/frederik78/pizza-delivery-spring-boot/blob/master/pizza-order.png)
 
 A ceci est associé le moteur de règles métier DMN afin de déterminer le livreur le plus approprié en fonction du code postal de la commande.
 
