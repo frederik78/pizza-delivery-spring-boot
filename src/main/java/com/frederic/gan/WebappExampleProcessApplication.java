@@ -4,11 +4,7 @@ import static org.camunda.bpm.engine.authorization.Authorization.ANY;
 import static org.camunda.bpm.engine.authorization.Authorization.AUTH_TYPE_GRANT;
 import static org.camunda.bpm.engine.authorization.Permissions.ALL;
 
-import java.util.List;
-
 import org.camunda.bpm.BpmPlatform;
-import org.camunda.bpm.dmn.engine.DmnDecisionTableResult;
-import org.camunda.bpm.engine.DecisionService;
 import org.camunda.bpm.engine.ProcessEngine;
 import org.camunda.bpm.engine.authorization.Authorization;
 import org.camunda.bpm.engine.authorization.Groups;
@@ -16,8 +12,6 @@ import org.camunda.bpm.engine.authorization.Resource;
 import org.camunda.bpm.engine.authorization.Resources;
 import org.camunda.bpm.engine.identity.Group;
 import org.camunda.bpm.engine.identity.User;
-import org.camunda.bpm.engine.variable.VariableMap;
-import org.camunda.bpm.engine.variable.Variables;
 import org.camunda.bpm.spring.boot.starter.annotation.EnableProcessApplication;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
